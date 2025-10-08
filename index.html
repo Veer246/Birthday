@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+<style>
+  body {
+    margin: 0;
+    background: #fff4f8;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .container {
+    text-align: center;
+  }
+  img {
+    max-width: 300px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  img:hover {
+    transform: scale(1.05);
+  }
+  h2 {
+    color: #ff5e9e;
+    font-size: 22px;
+  }
+  .hidden {
+    display: none;
+  }
+  #message {
+    width: 60%;
+    margin: 0 auto;
+    font-size: 20px;
+    color: #ff4a92;
+    font-weight: 700;
+    animation: fadeIn 1s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2 id="text">Hello My Beautiful Queen, please click me 😊</h2>
+  <img id="teddy" src="teddy.gif" alt="Teddy">
+
+  <img id="cakeOn" src="cake_on.gif" class="hidden" alt="Cake Burning">
+  <img id="cakeOff" src="cake_off.png" class="hidden" alt="Cake Blown">
+
+  <div id="message" class="hidden">
+    🎉 Happy Birthday, My Dear Bestie! 🎂<br>
+    My favorite human! You’re the peanut butter to my bread, the WiFi to my phone, and the drama to my peaceful life 😂❤️ Love you bestfriend — don’t worry, you’re still 17… just with a few bonus years of experience! 🎂💅
+  </div>
+</div>
+
+<script>
+const teddy = document.getElementById('teddy');
+const cakeOn = document.getElementById('cakeOn');
+const cakeOff = document.getElementById('cakeOff');
+const msg = document.getElementById('message');
+const text = document.getElementById('text');
+
+// Step 1: Teddy click -> show cake
+teddy.onclick = () => {
+  text.textContent = "Blow the candles if you can 😜";
+  teddy.classList.add('hidden');
+  cakeOn.classList.remove('hidden');
+  speak("Happy Birthday! Blow the candles if you can!");
+};
+
+// Step 2: Cake burning click -> candles off
+cakeOn.onclick = () => {
+  cakeOn.classList.add('hidden');
+  cakeOff.classList.remove('hidden');
+  speak("Woohoo! You blew the candles!");
+  setTimeout(showMessage, 2000);
+};
+
+// Step 3: Show message
+function showMessage() {
+  cakeOff.classList.add('hidden');
+  msg.classList.remove('hidden');
+  speak("My favorite human! You’re the peanut butter to my bread, the WiFi to my phone, and the drama to my peaceful life Love you bestfriend — don’t worry, you’re still 17… just with a few bonus years of experience!");
+}
+
+// Voice
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.95;
+  u.pitch = 1.1;
+  window.speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>
